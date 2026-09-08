@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,25 +25,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
-    /* Design Tokens & Minimal Professional System */
-    [data-theme="dark"] {
-      --bg-body: #0B0F17;
-      --bg-surface: #131A26;
-      --bg-surface-hover: #1A2332;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 153, 0, 0.4);
-      --text-primary: #F8FAFC;
-      --text-secondary: #94A3B8;
-      --text-tertiary: #64748B;
-      --accent-orange: #FF9900;
-      --accent-cyan: #00CAF8;
-      --badge-bg: rgba(255, 153, 0, 0.12);
-      --badge-border: rgba(255, 153, 0, 0.25);
-      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-      --toggle-bg: rgba(255, 255, 255, 0.08);
-    }
-
-    [data-theme="light"] {
+    /* Clean Light Minimal Design System */
+    :root {
       --bg-body: #F8FAFC;
       --bg-surface: #FFFFFF;
       --bg-surface-hover: #F1F5F9;
@@ -57,7 +40,6 @@
       --badge-bg: rgba(230, 126, 0, 0.08);
       --badge-border: rgba(230, 126, 0, 0.2);
       --shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.06);
-      --toggle-bg: #E2E8F0;
     }
 
     * {
@@ -727,17 +709,11 @@
     
     <!-- Minimal Header -->
     <header>
-      <div class="header-top">
+      <div class="header-top" style="justify-content: center;">
         <div class="brand-badge">
           <span class="pulse-dot"></span>
           AWS SBG @ LJIET
         </div>
-
-        <!-- Minimal Theme Switcher -->
-        <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">
-          <i class="fa-solid fa-moon" id="themeIcon"></i>
-          <span id="themeLabel">Dark</span>
-        </button>
       </div>
 
       <div class="hero-center">
@@ -998,35 +974,6 @@
   </div>
 
   <script>
-    // Theme Switcher Logic
-    function initTheme() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      updateThemeUI(savedTheme);
-    }
-
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateThemeUI(newTheme);
-    }
-
-    function updateThemeUI(theme) {
-      const icon = document.getElementById('themeIcon');
-      const label = document.getElementById('themeLabel');
-      if (theme === 'dark') {
-        icon.className = 'fa-solid fa-moon';
-        label.innerText = 'Dark';
-      } else {
-        icon.className = 'fa-solid fa-sun';
-        label.innerText = 'Light';
-      }
-    }
-
-    initTheme();
-
     let currentCategory = 'all';
 
     function copyLink(url, message) {
