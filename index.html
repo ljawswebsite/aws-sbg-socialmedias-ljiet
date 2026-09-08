@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS SBG @ LJIET — Attendee Link Portal</title>
+  <meta name="description" content="Official attendee link portal for AWS Student Builder Group at LJ Institute of Engineering and Technology. Access Meetup, LinkedIn, Instagram, website, and team roster.">
+  <meta name="keywords" content="AWS, AWS SBG, LJIET, LJ Institute of Engineering and Technology, Cloud Computing, Student Builder Group, Meetup">
+
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:title" content="AWS SBG @ LJIET — Attendee Link Portal">
+  <meta property="og:description" content="Connect with AWS Student Builder Group at LJ Institute of Engineering & Technology. Find all official links and team info in one place!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ljawswebsite.github.io/AWS_SBG_LJIET/">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    /* Design Tokens & Minimal Professional System */
+    [data-theme="dark"] {
+      --bg-body: #0B0F17;
+      --bg-surface: #131A26;
+      --bg-surface-hover: #1A2332;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 153, 0, 0.4);
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-tertiary: #64748B;
+      --accent-orange: #FF9900;
+      --accent-cyan: #00CAF8;
+      --badge-bg: rgba(255, 153, 0, 0.12);
+      --badge-border: rgba(255, 153, 0, 0.25);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --toggle-bg: rgba(255, 255, 255, 0.08);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-hover: #F1F5F9;
+      --border-color: #E2E8F0;
+      --border-hover: #FF9900;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-tertiary: #94A3B8;
+      --accent-orange: #E67E00;
+      --accent-cyan: #0284C7;
+      --badge-bg: rgba(230, 126, 0, 0.08);
+      --badge-border: rgba(230, 126, 0, 0.2);
+      --shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.06);
+      --toggle-bg: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 60px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    /* Minimal Header */
+    header {
+      margin-bottom: 32px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-orange);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10B981;
+    }
+
+    /* Theme Switcher Button */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    .hero-center {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .logo-box {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      border-radius: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: var(--accent-orange);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent-orange);
+      margin-bottom: 12px;
+    }
+
+    .hero-desc {
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Action bar */
+    .action-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    .btn:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent-orange);
+      color: #000;
+      font-weight: 700;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: #E67E00;
+      color: #FFF;
+      transform: translateY(-2px);
+    }
+
+    /* Controls (Search & Category Filters) */
+    .controls {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border-radius: 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      font-size: 0.95rem;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-orange);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-btn {
+      padding: 6px 14px;
+      border-radius: 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--badge-bg);
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    /* Links Grid & Cards */
+    .links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    .link-card:hover {
+      border-color: var(--accent-orange);
+      background: var(--bg-surface-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .icon-square {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--accent-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .link-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .link-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .link-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .copy-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    .arrow-icon {
+      color: var(--text-tertiary);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .link-card:hover .arrow-icon {
+      color: var(--accent-orange);
+      transform: translateX(4px);
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .subsection-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 20px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Team Layout (Consistent & Minimal) */
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .leader-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .leader-card:hover {
+      border-color: var(--accent-orange);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .leader-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .leader-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-orange);
+      flex-shrink: 0;
+    }
+
+    .avatar-initial {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--bg-surface-hover);
+      border: 3px solid var(--accent-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--accent-orange);
+      flex-shrink: 0;
+    }
+
+    .leader-info h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .role-tech {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 202, 248, 0.08);
+      border: 1px solid rgba(0, 202, 248, 0.2);
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .leader-bio {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Core Team 5-Column Grid Layout */
+    .core-team-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .core-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: space-between;
+      height: 100%;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .core-card:hover {
+      border-color: var(--accent-orange);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .member-photo {
+      width: 72px;
+      height: 72px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-orange);
+      flex-shrink: 0;
+    }
+
+    .member-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.90rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+      min-height: 2.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .member-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 202, 248, 0.08);
+      border: 1px solid rgba(0, 202, 248, 0.2);
+      padding: 3px 6px;
+      border-radius: 6px;
+      white-space: nowrap;
+      margin-top: auto;
+    }
+
+    /* Contact Card */
+    .contact-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .contact-item i {
+      font-size: 1.1rem;
+      color: var(--accent-cyan);
+      margin-top: 2px;
+    }
+
+    .contact-item div strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .contact-item div span, .contact-item div a {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .contact-item div a:hover {
+      color: var(--accent-orange);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-tertiary);
+    }
+
+    footer a {
+      color: var(--accent-orange);
+      text-decoration: none;
+    }
+
+    /* Modal & Toast */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 28px 24px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-tertiary);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .qr-box {
+      background: #FFF;
+      padding: 14px;
+      border-radius: 14px;
+      display: inline-block;
+      margin: 16px 0;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--bg-surface);
+      border: 1px solid var(--accent-orange);
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+      z-index: 2000;
+      transition: transform 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Responsiveness */
+    @media (max-width: 768px) {
+      .leadership-grid {
+        grid-template-columns: 1fr;
+      }
+      .core-team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 14px;
+      }
+      .hero-title {
+        font-size: 1.7rem;
+      }
+      .core-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .copy-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Minimal Header -->
+    <header>
+      <div class="header-top">
+        <div class="brand-badge">
+          <span class="pulse-dot"></span>
+          AWS SBG @ LJIET
+        </div>
+
+        <!-- Minimal Theme Switcher -->
+        <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+          <span id="themeLabel">Dark</span>
+        </button>
+      </div>
+
+      <div class="hero-center">
+        <div class="logo-box">
+          <i class="fa-brands fa-aws"></i>
+        </div>
+        <h1 class="hero-title">AWS Student Builder Group</h1>
+        <div class="hero-subtitle">LJ Institute of Engineering & Technology</div>
+        <p class="hero-desc">
+          Official attendee portal for LJIET cloud meetups, workshops, social channels, and team roster.
+        </p>
+
+        <div class="action-bar">
+          <button class="btn btn-primary" onclick="shareHub()">
+            <i class="fa-solid fa-share-nodes"></i> Share Hub
+          </button>
+          <button class="btn" onclick="openQRModal()">
+            <i class="fa-solid fa-qrcode"></i> Scan QR
+          </button>
+          <button class="btn" onclick="copyCurrentURL()">
+            <i class="fa-solid fa-link"></i> Copy Link
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search & Filters -->
+    <div class="controls">
+      <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search links or team members..." onkeyup="filterLinks()">
+      </div>
+
+      <div class="filter-tabs">
+        <button class="tab-btn active" onclick="setCategory('all', this)">All (5)</button>
+        <button class="tab-btn" onclick="setCategory('events', this)">Events</button>
+        <button class="tab-btn" onclick="setCategory('social', this)">Social</button>
+        <button class="tab-btn" onclick="setCategory('portal', this)">Website</button>
+        <button class="tab-btn" onclick="setCategory('team', this)">Team</button>
+      </div>
+    </div>
+
+    <!-- Link Cards -->
+    <div class="links-grid" id="linksGrid">
+
+      <!-- Official Website (Position #1) -->
+      <a href="https://ljawswebsite.github.io/AWS_SBG_LJIET/" target="_blank" rel="noopener noreferrer" class="link-card" data-category="portal" data-keywords="official website github pages portal projects leads team ljiet aws">
+        <div class="link-left">
+          <div class="icon-square"><i class="fa-solid fa-globe"></i></div>
+          <div>
+            <div class="link-title">Official Web Portal</div>
+            <div class="link-desc">Explore projects, learning tracks & full chapter details</div>
+          </div>
+        </div>
+        <div class="link-right">
+          <button class="copy-btn" title="Copy link" onclick="event.preventDefault(); copyLink('https://ljawswebsite.github.io/AWS_SBG_LJIET/', 'Website URL copied!')">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
+        </div>
+      </a>
+
+      <!-- Meetup -->
+      <a href="https://www.meetup.com/aws-sbg-at-lj-institute-of-engineering-and-technology" target="_blank" rel="noopener noreferrer" class="link-card" data-category="events" data-keywords="meetup events workshops registration ljiet aws sbg attendee session">
+        <div class="link-left">
+          <div class="icon-square"><i class="fa-brands fa-meetup"></i></div>
+          <div>
+            <div class="link-title">Meetup Community</div>
+            <div class="link-desc">RSVP & attend upcoming cloud meetups & workshops</div>
+          </div>
+        </div>
+        <div class="link-right">
+          <button class="copy-btn" title="Copy link" onclick="event.preventDefault(); copyLink('https://www.meetup.com/aws-sbg-at-lj-institute-of-engineering-and-technology', 'Meetup URL copied!')">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
+        </div>
+      </a>
+
+      <!-- LinkedIn Page -->
+      <a href="https://www.linkedin.com/company/aws-student-builder-group-at-ljiet/posts/" target="_blank" rel="noopener noreferrer" class="link-card" data-category="social" data-keywords="linkedin page company posts announcements news updates student builder group">
+        <div class="link-left">
+          <div class="icon-square"><i class="fa-brands fa-linkedin"></i></div>
+          <div>
+            <div class="link-title">LinkedIn Official Page</div>
+            <div class="link-desc">Follow chapter posts, news & event announcements</div>
+          </div>
+        </div>
+        <div class="link-right">
+          <button class="copy-btn" title="Copy link" onclick="event.preventDefault(); copyLink('https://www.linkedin.com/company/aws-student-builder-group-at-ljiet/posts/', 'LinkedIn Page URL copied!')">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
+        </div>
+      </a>
+
+      <!-- LinkedIn Group -->
+      <a href="https://www.linkedin.com/groups/26960015" target="_blank" rel="noopener noreferrer" class="link-card" data-category="social" data-keywords="linkedin group community members students alumni networking discussion">
+        <div class="link-left">
+          <div class="icon-square"><i class="fa-solid fa-users"></i></div>
+          <div>
+            <div class="link-title">LinkedIn Group</div>
+            <div class="link-desc">Connect & network with LJIET student builders & alumni</div>
+          </div>
+        </div>
+        <div class="link-right">
+          <button class="copy-btn" title="Copy link" onclick="event.preventDefault(); copyLink('https://www.linkedin.com/groups/26960015', 'LinkedIn Group URL copied!')">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
+        </div>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/aws.sbg_lj?stkn=MWoxcG5weTBmdTI5OA==" target="_blank" rel="noopener noreferrer" class="link-card" data-category="social" data-keywords="instagram ig photos reels highlights stories social media ljiet aws sbg">
+        <div class="link-left">
+          <div class="icon-square"><i class="fa-brands fa-instagram"></i></div>
+          <div>
+            <div class="link-title">Instagram @aws.sbg_lj</div>
+            <div class="link-desc">Photos, reels, event highlights & behind-the-scenes</div>
+          </div>
+        </div>
+        <div class="link-right">
+          <button class="copy-btn" title="Copy link" onclick="event.preventDefault(); copyLink('https://www.instagram.com/aws.sbg_lj?stkn=MWoxcG5weTBmdTI5OA==', 'Instagram URL copied!')">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+          <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-section" id="teamSection">
+      <h2 class="section-title"><i class="fa-solid fa-users"></i> Team</h2>
+      <p class="section-subtitle">Faculty mentors, student leads, and core team building AWS SBG @ LJIET.</p>
+
+      <!-- Leadership Team -->
+      <h3 class="subsection-title"><i class="fa-solid fa-user-shield" style="color: var(--accent-orange);"></i> Leadership team</h3>
+      <div class="leadership-grid">
+        <!-- Tushar Thakkar -->
+        <div class="leader-card" data-keywords="tushar thakkar faculty coordinator mentor advisor chapter lead guide ljiet aws leadership team">
+          <div class="leader-header">
+            <div class="avatar-initial">TT</div>
+            <div class="leader-info">
+              <h4>Tushar Thakkar</h4>
+              <span class="role-tech">Faculty Coordinator</span>
+            </div>
+          </div>
+          <p class="leader-bio">Guides the chapter, mentors student leaders, and supports club initiatives and industry collaboration.</p>
+        </div>
+
+        <!-- Anjali Dubey -->
+        <div class="leader-card" data-keywords="anjali dubey president chapter lead coordinator strategy technical initiatives ljiet aws leadership team">
+          <div class="leader-header">
+            <img src="Anjali.jpg" alt="Anjali Dubey" class="leader-avatar">
+            <div class="leader-info">
+              <h4>Anjali Dubey</h4>
+              <span class="role-tech">President / Chapter Lead</span>
+            </div>
+          </div>
+          <p class="leader-bio">Coordinates club strategy, events, technical initiatives, and student engagement across LJIET.</p>
+          <div style="display: flex; gap: 8px; margin-top: auto;">
+            <a href="https://www.linkedin.com/company/aws-student-builder-group-at-ljiet/posts/" target="_blank" class="copy-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/ljawswebsite/AWS_SBG_LJIET" target="_blank" class="copy-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Team 5 Cards -->
+      <h3 class="subsection-title"><i class="fa-solid fa-users-gear" style="color: var(--accent-cyan);"></i> Core Team</h3>
+      <div class="core-team-grid">
+        <div class="core-card" data-keywords="romin kevadiya technical team core team developer cloud aws">
+          <img src="Romin.jpg" alt="Romin Kevadiya" class="member-photo">
+          <div class="member-name">Romin Kevadiya</div>
+          <span class="member-badge">Technical Team</span>
+        </div>
+
+        <div class="core-card" data-keywords="indrakshi singh c content team core team writer articles documentation aws">
+          <img src="indrakshi.jpg" alt="Indrakshi Singh C." class="member-photo">
+          <div class="member-name">Indrakshi Singh C.</div>
+          <span class="member-badge">Content Team</span>
+        </div>
+
+        <div class="core-card" data-keywords="rajvee kapadia marketing team core team outreach promotions aws">
+          <img src="Rajvee.jpg" alt="Rajvee Kapadia" class="member-photo">
+          <div class="member-name">Rajvee Kapadia</div>
+          <span class="member-badge">Marketing Team</span>
+        </div>
+
+        <div class="core-card" data-keywords="labdhi shah social media team core team instagram reels posts graphics aws">
+          <img src="Labdhi.jpg" alt="Labdhi Shah" class="member-photo">
+          <div class="member-name">Labdhi Shah</div>
+          <span class="member-badge">Social Media Team</span>
+        </div>
+
+        <div class="core-card" data-keywords="devam doshi event management team core team logistics meetups workshops aws">
+          <img src="devam.PNG" alt="Devam Doshi" class="member-photo">
+          <div class="member-name">Devam Doshi</div>
+          <span class="member-badge">Event Management Team</span>
+        </div>
+      </div>
+
+      <!-- Contact Card -->
+      <div class="contact-card" data-keywords="cloud lab campus email contact block b lab 302 lj university">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; color: var(--text-primary);">
+          <i class="fa-solid fa-location-dot" style="color: var(--accent-cyan);"></i> Get in Touch & Campus Location
+        </h3>
+        <p style="font-size: 0.86rem; color: var(--text-secondary); margin-top: 2px;">
+          Welcome to all LJIET students — curiosity is all you need to join!
+        </p>
+
+        <div class="contact-grid">
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong>Official Email</strong>
+              <a href="mailto:awsclub@ljiet.edu.in">awsclub@ljiet.edu.in</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-building-columns"></i>
+            <div>
+              <strong>Campus Location</strong>
+              <span>LJ University Campus, Block B, Lab 302</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2026 <strong>AWS Student Builder Group</strong> • LJ Institute of Engineering & Technology</p>
+      <p style="margin-top: 4px;"><a href="https://ljawswebsite.github.io/AWS_SBG_LJIET/" target="_blank">Official Website</a></p>
+    </footer>
+
+  </div>
+
+  <!-- QR Modal -->
+  <div class="modal-overlay" id="qrModal" onclick="closeQRModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+      <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.3rem; color: var(--text-primary); margin-bottom: 4px;">Scan QR Code</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary);">Open all AWS SBG LJIET links on your phone.</p>
+      <div class="qr-box"><div id="qrcode"></div></div>
+      <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="copyCurrentURL()">
+        <i class="fa-solid fa-copy"></i> Copy Portal URL
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check" style="color: #10B981;"></i>
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+
+  <script>
+    // Theme Switcher Logic
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeUI(savedTheme);
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeUI(newTheme);
+    }
+
+    function updateThemeUI(theme) {
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      if (theme === 'dark') {
+        icon.className = 'fa-solid fa-moon';
+        label.innerText = 'Dark';
+      } else {
+        icon.className = 'fa-solid fa-sun';
+        label.innerText = 'Light';
+      }
+    }
+
+    initTheme();
+
+    let currentCategory = 'all';
+
+    function copyLink(url, message) {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast(message || 'Copied to clipboard!');
+      }).catch(() => {
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showToast(message || 'Copied to clipboard!');
+      });
+    }
+
+    function copyCurrentURL() {
+      copyLink(window.location.href, 'Attendee Hub URL copied!');
+    }
+
+    function shareHub() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'AWS SBG @ LJIET Attendee Links',
+          text: 'Official links for AWS Student Builder Group at LJIET',
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        copyCurrentURL();
+      }
+    }
+
+    let toastTimeout;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').innerText = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    function filterLinks() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.link-card');
+      const teamSection = document.getElementById('teamSection');
+      const teamCards = document.querySelectorAll('.leader-card, .core-card, .contact-card');
+
+      cards.forEach(card => {
+        const keywords = card.getAttribute('data-keywords').toLowerCase();
+        const title = card.querySelector('.link-title').innerText.toLowerCase();
+        const category = card.getAttribute('data-category');
+
+        const matchesCat = (currentCategory === 'all' || category === currentCategory);
+        const matchesQuery = (!query || keywords.includes(query) || title.includes(query));
+
+        if (currentCategory === 'team') {
+          card.style.display = 'none';
+        } else if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      let hasTeam = false;
+      teamCards.forEach(card => {
+        const keywords = card.getAttribute('data-keywords') ? card.getAttribute('data-keywords').toLowerCase() : '';
+        const text = card.innerText.toLowerCase();
+        const matchesQuery = (!query || keywords.includes(query) || text.includes(query));
+
+        if ((currentCategory === 'all' || currentCategory === 'team') && matchesQuery) {
+          card.style.display = card.classList.contains('core-card') ? 'flex' : 'block';
+          hasTeam = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (teamSection) {
+        teamSection.style.display = (hasTeam && (currentCategory === 'all' || currentCategory === 'team')) ? 'block' : 'none';
+      }
+    }
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterLinks();
+    }
+
+    let qrGenerated = false;
+    function openQRModal() {
+      document.getElementById('qrModal').classList.add('active');
+      if (!qrGenerated) {
+        const targetUrl = window.location.href.startsWith('file:') 
+          ? 'https://ljawswebsite.github.io/AWS_SBG_LJIET/' 
+          : window.location.href;
+
+        new QRCode(document.getElementById("qrcode"), {
+          text: targetUrl,
+          width: 180,
+          height: 180,
+          colorDark: "#0F172A",
+          colorLight: "#ffffff"
+        });
+        qrGenerated = true;
+      }
+    }
+
+    function closeQRModal(e) {
+      if (e.target.id === 'qrModal') closeModalDirect();
+    }
+
+    function closeModalDirect() {
+      document.getElementById('qrModal').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModalDirect();
+    });
+  </script>
+</body>
+</html>
